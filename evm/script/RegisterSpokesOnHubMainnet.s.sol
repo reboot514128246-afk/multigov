@@ -5,12 +5,15 @@ import {Script, stdJson} from "forge-std/Script.sol";
 import {Vm} from "forge-std/Vm.sol";
 import {HubVotePool} from "src/HubVotePool.sol";
 
-contract RegisterSpokesOnHubTestnet is Script {
-  address HUB_VOTE_POOL = 0xddEB0415Ada159AE53D980feB6FF05244F65FD7f; // TODO: Replace with the hub vote pool address
-  address OPTIMISM_SEPOLIA_VOTE_AGGREGATOR = 0x767f74378aCAFDb44C7E2f73F49101aD2C3eD6d2; // TODO: Replace with a real
-    // address
-  bytes32 SOLANA_SPOKE = bytes32(0xabd58849f17e52708082849880f862589c11f972cb372d73b0cd219722cd0f22);
-  address TIMELOCK = 0x1054f49899Af83e0c55375d54D2F57488cFC8606; // TODO Timelock address
+contract RegisterSpokesOnHubMainnet is Script {
+  address HUB_VOTE_POOL = 0x2E57935d31Ef7F161e7bC69Fca873E04097ff3af;
+  address OPTIMISM_VOTE_AGGREGATOR = 0x0A447C68166B486E84a87B869018c040063A1f16;
+  address BASE_VOTE_AGGREGATOR = 0x4C31eeEe22c08474A45e15Bb23c46A6f2b446FB4;
+  address ARBITRUM_VOTE_AGGREGATOR = 0xe495E8632D2C335969F7CE1Ee1c6F4618ce0D780;
+
+  // address
+  bytes32 SOLANA_SPOKE = bytes32(0x05317ba34782df7acc92a59ac742832576b42ba18a8d07b5f31de087a3dd800a);
+  address TIMELOCK = 0xfBc580c0289121673EfB7375fF111bD2A4db4654; // TODO Timelock address
 
   error InvalidAddressConfiguration();
 
@@ -29,7 +32,9 @@ contract RegisterSpokesOnHubTestnet is Script {
     HubVotePool hubVotePool = HubVotePool(HUB_VOTE_POOL);
     // register solana
     hubVotePool.registerSpoke(1, SOLANA_SPOKE);
-    hubVotePool.registerSpoke(10_005, bytes32(uint256(uint160(OPTIMISM_SEPOLIA_VOTE_AGGREGATOR))));
+    hubVotePool.registerSpoke(24, bytes32(uint256(uint160(OPTIMISM_VOTE_AGGREGATOR))));
+    hubVotePool.registerSpoke(23, bytes32(uint256(uint160(ARBITRUM_VOTE_AGGREGATOR))));
+    hubVotePool.registerSpoke(30, bytes32(uint256(uint160(BASE_VOTE_AGGREGATOR))));
     // transfer owner
     hubVotePool.transferOwnership(TIMELOCK);
     vm.stopBroadcast();
