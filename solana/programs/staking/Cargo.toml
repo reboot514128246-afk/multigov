@@ -44,7 +44,7 @@ wormhole-anchor-sdk = { git = "https://github.com/wormholelabs-xyz/wormhole-scaf
 
 
 [dev-dependencies]
-rand = "0.8.5"
+rand = "0.8.6"
 quickcheck = "1"
 quickcheck_macros = "1"
 hex = "0.4"
